@@ -269,45 +269,242 @@ void Print(int syn,int &pProject)
 //    for(int i=0;i<CFcounter;i++)
 //        cout<<CF[i]<<"  "<<CFM[i]<<endl;
 }
-//-----------------------------------------------------------------------------
+//-----------------------------语法分析函数------------------------------------------------
+int TD31(int &syn)
+{
+    if(syn==10){
+        FX.pop();
+        FX.push(33);
+        FX.push(32);
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
 
-//语法分析器
-int statement(int syn)
+int TD32(int &syn)
+{
+    if(syn==10){
+        FX.pop();
+        FX.push(34);
+        return 1;
+    }
+    else
+        return 0;
+}
+int TD33(int &syn)
+{
+    if(syn==26){
+        FX.pop();
+        FX.push(33);
+        FX.push(32);
+        FX.push(26);
+        return 1;
+    }
+    else
+        return 0;
+}
+int TD34(int &syn)
+{
+    if(syn==10){
+        FX.pop();
+        FX.push(35);
+        FX.push(18);
+        FX.push(10);
+        return 1;
+    }
+    else
+        return 0;
+}
+int TD35(int &syn)
+{
+    if(syn==11){
+        FX.pop();
+        FX.push(38);
+        FX.push(36);
+        return 1;
+    }
+    else if(syn==27){
+        FX.pop();
+        FX.push(38);
+        FX.push(36);
+        return 1;
+    }
+    else if(syn==10){
+        FX.pop();
+        FX.push(38);
+        FX.push(36);
+        return 1;
+    }
+    else
+        return 0;
+}
+
+int TD36(int &syn)
+{
+    if(syn==11){
+        FX.pop();
+        FX.push(39);
+        FX.push(37);
+        return 1;
+    }
+    else if(syn==27){
+        FX.pop();
+        FX.push(39);
+        FX.push(37);
+        return 1;
+    }
+    else if(syn==10){
+        FX.pop();
+        FX.push(39);
+        FX.push(37);
+        return 1;
+    }
+    else
+        return 0;
+}
+
+int TD37(int &syn)
+{
+    if(syn==11){
+        FX.pop();
+        FX.push(11);
+        return 1;
+    }
+    else if(syn==27){
+        FX.pop();
+        FX.push(28);
+        FX.push(35);
+        FX.push(27);
+        return 1;
+    }
+    else if(syn==10){
+        FX.pop();
+        FX.push(10);
+        return 1;
+    }
+    else
+        return 0;
+}
+
+int TD38(int &syn)
+{
+    if(syn==26){
+        FX.pop();
+        return 1;
+    }
+    else if(syn==13){
+        FX.pop();
+        FX.push(38);
+        FX.push(36);
+        FX.push(13);
+        return 1;
+    }
+    else if(syn==14){
+        FX.pop();
+        FX.push(38);
+        FX.push(36);
+        FX.push(14);
+        return 1;
+    }
+    else if(syn==28){
+        FX.pop();
+        return 1;
+    }
+    else
+        return 0;
+}
+
+int TD39(int &syn)
+{
+    if(syn==16){
+        FX.pop();
+        FX.push(39);
+        FX.push(37);
+        FX.push(16);
+        return 1;
+    }
+    else if(syn==13){
+        FX.pop();
+        return 1;
+    }
+    else if(syn==14){
+        return 1;
+    }
+    else if(syn==15){
+        FX.pop();
+        FX.push(39);
+        FX.push(37);
+        FX.push(15);
+        return 1;
+    }
+    else if(syn==28){
+        FX.pop();
+        return 1;
+    }
+     else if(syn==26){
+        FX.pop();
+        return 1;
+    }
+    else
+        return 0;
+}
+
+/*
+语法分析器  根据文法FIRST集和FOLLOW集分别调用相应的函数
+31至39分别为非终结符的编号
+*/
+int statement(int &syn)
 {
     int flag = 1;
     int X;
     X = FX.top();
+    //cout<<syn<<"  "<<X<<endl;
     if(X==31){
-        TD31(syn);
+        flag=TD31(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==32){
-        TD32(syn);
+        flag=TD32(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==33){
-        TD33(syn);
+        flag=TD33(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==34){
-        TD34(syn);
+        flag=TD34(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==35){
-        TD35(syn);
+        flag=TD35(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==36){
-        TD36(syn);
+        flag=TD36(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==37){
-        TD37(syn);
+        flag=TD37(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==38){
-        TD38(syn);
+        flag=TD38(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==39){
-        TD39(syn);
+        flag=TD39(syn);
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
     }
     else if(X==syn){
-        FX.pop()
+        //cout<<syn<<"  "<<X<<"  "<<flag<<endl;
+        FX.pop();
+        Scanner(syn,resourceProject,token,pProject);
+        Print(syn,pProject);
+        //cout<<"now syn"<<syn<<endl;
     }
-    else if(){
+    else {
         cout<<"error sentence 4 !"<<endl;
         flag=0;
     }
@@ -344,29 +541,28 @@ int main()
         FX.push(0);
         FX.push(31);
         while(!FX.empty()&&p!=0){
+
             p=statement(syn);
-            Scanner(syn,resourceProject,token,pProject);
-            Print(syn,pProject);
+            //cout<<FX.top()<<"  "<<p<<"  "<<syn<<endl;
         }
-
-
-        if(syn==6){
+        if(syn==6){ //运行过程中碰到end时直接执行该句
             Scanner(syn,resourceProject,token,pProject);
             if(syn==0){
                 cout<<"success!"<<endl;
+                while(!FX.empty()){
+                    FX.pop();
+                }
             }
             else
                 cout<<"error sentence 2 !"<<endl;
         }
         else
             cout<<"error sentence 3 !"<<endl;
+        while(!FX.empty()){
+            cout<<FX.top()<<endl;
+            FX.pop();
+        }
     }
-
-    //}
-
     return 0;
 }
-
-
-
 
